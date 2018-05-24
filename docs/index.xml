@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title></title>
+    <link>/</link>
+    <description>Recent content on </description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    
+	<atom:link href="/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title></title>
+      <link>/data-card-ex/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>/data-card-ex/</guid>
+      <description>Compiled annual statewide Alaskan salmon escapement counts    The number of mature salmon migrating from the marine environment to freshwater streams is defined as escapement. Escapement data are the enumeration of these migrating fish as they pass upstream, and are a widely used index of spawning salmon …  people   table_chart   gavel   cloud_download       &amp;nbsp; Jeanette Clark   &amp;nbsp; Rich Brenner     variable  units short_text  Stock.</description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>/</guid>
+      <description>Compiled annual statewide Alaskan salmon escapement counts    The number of mature salmon migrating from the marine environment to freshwater streams is defined as escapement. Escapement data are the enumeration of these migrating fish as they pass upstream, and are a widely used index of spawning salmon …  people   table_chart   gavel   cloud_download       &amp;nbsp; Jeanette Clark   &amp;nbsp; Rich Brenner     variable  units short_text  Stock.</description>
+    </item>
+    
+  </channel>
+</rss>
