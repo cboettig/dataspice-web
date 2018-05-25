@@ -1,9 +1,10 @@
 theme = "hugo-material-theme"
 languageCode = "en-us"
-title = ""
+title = "Datasets"
 publishDir = "docs"
 baseurl = "/"
 relativeurls = true
+ignoreFiles = ["\\.Rmd$", "\\.Rmarkdown$", "_files$", "_cache$"]
 
 [params]
   background = "https://cboettig.github.io/dataspice-web/img/bg7.jpg"

@@ -4,11 +4,10 @@
   
   <url>
     <loc>/</loc>
-    <priority>0</priority>
   </url>
   
   <url>
-    <loc>/</loc>
+    <loc>/ex/</loc>
   </url>
   
   <url>
