@@ -1,5 +1,6 @@
 theme = "hugo-material-theme"
-baseURL = "http://example.org/"
 languageCode = "en-us"
 title = ""
 publishDir = "docs"
+baseurl = "/"
+relativeurls = true
