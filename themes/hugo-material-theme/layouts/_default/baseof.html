@@ -4,9 +4,10 @@
   <body class="{{ .Params.class | default "profile-page" }}">
   {{ partial "nav.html" . }}
   
+  {{ $bg := (.Param "background") | default .Site.Params.background | default "img/bg7.jpg" | relURL  }}
   <div class="page-header header-filter" 
        data-parallax="true"
-       style="background-image: url('{{ (.Param "background")  | default "img/bg7.jpg" | absURL }}');">
+       style="background-image: url('{{ $bg }}');">
   </div>
   <div class="main main-raised">
 	  <div class="profile-content">

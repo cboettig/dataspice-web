@@ -4,3 +4,7 @@ title = ""
 publishDir = "docs"
 baseurl = "/"
 relativeurls = true
+
+[params]
+  background = "https://cboettig.github.io/dataspice-web/img/bg7.jpg"
+
