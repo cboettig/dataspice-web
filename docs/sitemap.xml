@@ -11,6 +11,14 @@
   </url>
   
   <url>
+    <loc>/ex2/</loc>
+  </url>
+  
+  <url>
+    <loc>/ex3/</loc>
+  </url>
+  
+  <url>
     <loc>/categories/</loc>
     <priority>0</priority>
   </url>

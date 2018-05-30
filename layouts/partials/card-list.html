@@ -1,19 +1,17 @@
 
 <div class="container justify-content-center">
   <div class="row">
+  {{ range .Paginator.Pages }}
     <div class="col-md-6 col-lg-6 col-xl-6 ml-auto mr-auto">
       <div class="card card-nav-tabs">
-
       <div class="card-body ">
-      <h4>{{ .Page.Params.name }}</h4>
-      {{if .Page.Params.image }}
-        <img class="img-fluid" src="{{.Page.Params.image | relURL }}"/>
-      {{else if .Page.Params.mapcenterstring }}
-        <div id="map"></div>
+      <h5>{{ .Params.name }}</h4>
+      {{if .Params.image }}
+        <img class="img-fluid" src="{{.Params.image | relURL }}"/>
       {{ end }}
-      <emph>{{ .Page.Params.geographicCoverage.name }}</emph>
+      <emph>{{ .Params.spatialCoverage.name }}</emph>
       <hr/>
-      <p style="line-height: 1.2em; font-size: 80%">{{ .Page.Description | truncate 250 }}</p>
+      <p style="line-height: 1.2em; font-size: 80%">{{ .Description | truncate 250 }}</p>
       <hr/>
 
       <div class="nav-tabs-navigation bg-info">
@@ -57,7 +55,7 @@
           <div class="tab-pane" id="authors">
             <h6>Authors</h6>
             <ul class="fa-ul">
-              {{ range first 10 .Page.Params.creator }}
+              {{ range first 10 .Params.creator }}
                 <li><i class="fa fa-user"></i> &nbsp; {{ .givenName }} {{ .familyName }} </li>
               {{ end }}
             </ul>
@@ -69,34 +67,35 @@
               <th align="center" style="width:10px"><i class="fa fa-thermometer-full"></i> units</th>
               <th align="center" style="width:50px"><i class="material-icons">short_text</i></th>
             </tr>
-              {{ range first 10 .Page.Params.variableMeasured }}
+              {{ range first 10 .Params.variableMeasured }}
                 <tr><td>{{ .value }}</td><td>{{.unitText}}</td><td>{{ .description }}</td></tr>
               {{ end }}            
               </table>
-              {{ if gt (len .Page.Params.variableMeasured) 10 }} More ... {{ end }}
+              {{ if gt (len .Params.variableMeasured) 10 }} More ... {{ end }}
           </div>
           
           <div class="tab-pane" id="legal">
           <ul class="fa-ul">
-          {{ if .Page.Params.license }} <li><i class="fa fa-balance-scale"></i> <a href="{{ .Page.Params.license }}"> license</a></li> {{ end }} 
-          {{ if .Page.Params.funder }} <li><i class="fa fa-money"></i> <a href="{{ .Page.Params.funder }}"> funder </a></li> {{ end }} 
+          {{ if .Params.license }} <li><i class="fa fa-balance-scale"></i> <a href="{{ .Params.license }}"> license</a></li> {{ end }} 
+          {{ if .Params.funder }} <li><i class="fa fa-money"></i> <a href="{{ .Params.funder }}"> funder </a></li> {{ end }} 
           </ul>
           </div>
           
           <div class="tab-pane" id="download">
               <h6>Download</h6>
               <ul class="fa-ul">
-              {{ range first 10 .Page.Params.distribution }}
+              {{ range first 10 .Params.distribution }}
                 <li><a href="{{.contentUrl}}"><i class="fa fa-table"></i> &nbsp; {{ .name }} </a> </li>
               {{ end }}
               </ul>
-              {{ if gt (len .Page.Params.distribution) 10 }} More... {{ end }}
+              {{ if gt (len .Params.distribution) 10 }} More... {{ end }}
           </div>
       </div>
   </div>
   
 </div> <!-- end card -->
 </div> <!-- end col align -->
+{{ end }}
 </div> <!-- end row -->
 </div> <!-- end container -->
 
@@ -108,7 +107,8 @@
 {{ $west := index $coords 3 | float }}
 {{ $ns := add $north $south  }}
 {{ $ew := add $east $west  }}
-
+{{ div $ns 2  }}
+{{ div $ew 2  }}
 <script>
       var mymap = L.map('map').setView([{{ div $ns 2  }}, {{ div $ew 2  }}] , 1);
       L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}', {

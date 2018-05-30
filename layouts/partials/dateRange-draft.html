@@ -1,0 +1,6 @@
+{{if .Page.Params.temporalCoverage }}
+   {{ $dateRange :=  split .Page.Params.temporalCoverage "/" }}
+   {{range $dateRange }}
+     {{ slicestr . 0 10 }} 
+   {{end}}
+{{ end }}

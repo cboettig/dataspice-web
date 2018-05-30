@@ -1,20 +1,32 @@
 
 <div class="container justify-content-center">
-  <div class="row">
-    <div class="col-md-6 col-lg-6 col-xl-6 ml-auto mr-auto">
-      <div class="card card-nav-tabs">
+    <div class="row">
+      <div class="col-md-6 col-lg-6 col-xl-6 ml-auto mr-auto">
 
-      <div class="card-body ">
-      <h4>{{ .Page.Params.name }}</h4>
-      {{if .Page.Params.image }}
-        <img class="img-fluid" src="{{.Page.Params.image | relURL }}"/>
-      {{else if .Page.Params.mapcenterstring }}
-        <div id="map"></div>
-      {{ end }}
-      <emph>{{ .Page.Params.geographicCoverage.name }}</emph>
-      <hr/>
-      <p style="line-height: 1.2em; font-size: 80%">{{ .Page.Description | truncate 250 }}</p>
-      <hr/>
+<!-- Tabs with icons on Card -->
+<div class="card card-nav-tabs">
+
+<div class="card-body ">
+<h5>{{ .Site.Data.dataspice.name }}</h4>
+
+
+
+{{if .Site.Data.dataspice.image }}
+<img class="img-fluid" src="{{.Site.Data.dataspice.image | relURL }}"/>
+
+{{else if .Site.Data.dataspice.mapcenterstring }}
+    
+<div id="map"></div>
+
+{{ end }}
+
+
+<emph>{{ .Site.Data.dataspice.spatialCoverage.name }}</emph>
+<hr/>
+
+<p style="line-height: 1.2em; font-size: 80%">{{ .Page.Description | truncate 250 }}</p>
+
+<hr/>
 
       <div class="nav-tabs-navigation bg-info">
           <div class="nav-tabs-wrapper">
@@ -24,6 +36,7 @@
                       <i class="material-icons">satellite</i>
                     </a>
                   </li>
+                  
                   <li class="nav-item">
                       <a class="nav-link" href="#authors" data-toggle="tab">
                           <i class="material-icons">people</i>
@@ -43,6 +56,7 @@
                   <li class="nav-item">
                       <a class="nav-link" href="#download" data-toggle="tab">
                           <i class="material-icons">cloud_download</i>
+                          
                       </a>
                   </li>
               </ul>
@@ -50,6 +64,7 @@
       </div>
       
       <div class="tab-content text-left">
+        
           <div class="tab-pane active" id="coverage">
             <div id="map"></div>
           </div>
@@ -57,7 +72,7 @@
           <div class="tab-pane" id="authors">
             <h6>Authors</h6>
             <ul class="fa-ul">
-              {{ range first 10 .Page.Params.creator }}
+              {{ range first 10 .Site.Data.dataspice.creator }}
                 <li><i class="fa fa-user"></i> &nbsp; {{ .givenName }} {{ .familyName }} </li>
               {{ end }}
             </ul>
@@ -69,38 +84,40 @@
               <th align="center" style="width:10px"><i class="fa fa-thermometer-full"></i> units</th>
               <th align="center" style="width:50px"><i class="material-icons">short_text</i></th>
             </tr>
-              {{ range first 10 .Page.Params.variableMeasured }}
+              {{ range first 10 .Site.Data.dataspice.variableMeasured }}
                 <tr><td>{{ .value }}</td><td>{{.unitText}}</td><td>{{ .description }}</td></tr>
               {{ end }}            
               </table>
-              {{ if gt (len .Page.Params.variableMeasured) 10 }} More ... {{ end }}
+              {{ if gt (len .Site.Data.dataspice.variableMeasured) 10 }} More ... {{ end }}
           </div>
           
           <div class="tab-pane" id="legal">
           <ul class="fa-ul">
-          {{ if .Page.Params.license }} <li><i class="fa fa-balance-scale"></i> <a href="{{ .Page.Params.license }}"> license</a></li> {{ end }} 
-          {{ if .Page.Params.funder }} <li><i class="fa fa-money"></i> <a href="{{ .Page.Params.funder }}"> funder </a></li> {{ end }} 
+          {{ if .Site.Data.dataspice.license }} <li><i class="fa fa-balance-scale"></i> <a href="{{ .Site.Data.dataspice.license }}"> license</a></li> {{ end }} 
+          {{ if .Site.Data.dataspice.funder }} <li><i class="fa fa-money"></i> <a href="{{ .Site.Data.dataspice.funder }}"> funder </a></li> {{ end }} 
           </ul>
           </div>
           
           <div class="tab-pane" id="download">
               <h6>Download</h6>
               <ul class="fa-ul">
-              {{ range first 10 .Page.Params.distribution }}
+              {{ range first 10 .Site.Data.dataspice.distribution }}
                 <li><a href="{{.contentUrl}}"><i class="fa fa-table"></i> &nbsp; {{ .name }} </a> </li>
               {{ end }}
               </ul>
-              {{ if gt (len .Page.Params.distribution) 10 }} More... {{ end }}
+
+              {{ if gt (len .Site.Data.dataspice.distribution) 10 }} More... {{ end }}
+
           </div>
       </div>
   </div>
-  
-</div> <!-- end card -->
-</div> <!-- end col align -->
-</div> <!-- end row -->
-</div> <!-- end container -->
+</div>
 
-<!-- Hugo variables + Javascript for Leaflet map -->
+</div>
+
+
+
+
 {{ $coords := split .Site.Data.dataspice.spatialCoverage.geo.box " " }}
 {{ $north := index $coords 0 | float }}
 {{ $east := index $coords 1 | float }}
@@ -108,8 +125,10 @@
 {{ $west := index $coords 3 | float }}
 {{ $ns := add $north $south  }}
 {{ $ew := add $east $west  }}
-
-<script>
+{{ div $ns 2  }}
+{{ div $ew 2  }} 
+   
+  <script>
       var mymap = L.map('map').setView([{{ div $ns 2  }}, {{ div $ew 2  }}] , 1);
       L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}', {
         attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
@@ -119,4 +138,6 @@
       }).addTo(mymap);
 
       var polygon = L.polygon([[{{$north}},{{$east}}], [{{$south}},{{$east}}], [{{$south}},{{$west}}], [{{$north}},{{$west}}] ]).addTo(mymap);
-</script>
+    </script>
+</div>
+</div>
